@@ -31,7 +31,7 @@ export type RenderableRoot = {
 };
 
 export type DesignSystemDefinition = {
-  provider?: React.FC<any>;
+  Provider?: React.FC<any>;
   components: Record<string, ComponentDefinition>;
   createElement: (...args: any[]) => JSX.Element;
   createRoot: (element: HTMLElement) => RenderableRoot;

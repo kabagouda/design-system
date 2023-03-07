@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, ChakraProvider, Text } from "@chakra-ui/react";
 import {
   component,
   DesignSystemDefinition,
@@ -97,6 +97,7 @@ const dependencies = {
 };
 
 export const DesignSystem: DesignSystemDefinition = {
+  Provider: ChakraProvider,
   createElement,
   createRoot,
   components: {
