@@ -2,8 +2,10 @@ import { Avatar, Box, Button, ChakraProvider, Text } from "@chakra-ui/react";
 import {
   component,
   DesignSystemDefinition,
+  RenderableRoot,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
+import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
 type BaseProps = {
@@ -88,7 +90,22 @@ const dependencies = {
 export const DesignSystem: DesignSystemDefinition = {
   Provider: ChakraProvider,
   createElement,
-  createRoot,
+  createRoot: (element: HTMLElement) => {
+    const root = createRoot(element);
+
+    const renderableRoot: RenderableRoot = {
+      render: (node) => {
+        flushSync(() => {
+          root.render(node);
+        });
+      },
+      unmount: () => {
+        root.unmount();
+      },
+    };
+
+    return renderableRoot;
+  },
   components: {
     [component.id.button]: {
       Component: NoyaButton,
