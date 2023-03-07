@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build": "webpack --env production",
-    "clean": "npx rimraf dist"
+    "clean": "npx rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -29,6 +30,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "babel-loader": "^9.1.2",
+    "rimraf": "^4.3.1",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
