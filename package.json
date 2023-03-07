@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "publish": "pnpm publish -r"
+  },
   "keywords": [],
   "author": "Devin Abbott",
   "license": "MIT",
