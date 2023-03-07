@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "target": "ES2016",
+    "lib": ["ES2020", "DOM"],
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "react-jsx"
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "dist",
+    "example",
+    "webpack.config.ts"
+  ]
+}
