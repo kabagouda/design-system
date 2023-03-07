@@ -7,7 +7,8 @@
   "scripts": {
     "clean": "pnpm turbo clean",
     "build": "pnpm turbo build",
-    "publish": "pnpm publish -r"
+    "publish-all": "pnpm turbo publish-all && pnpm publish -r",
+    "publish-all:dry-run": "pnpm turbo publish-all && pnpm publish -r --dry-run"
   },
   "keywords": [],
   "author": "Devin Abbott",

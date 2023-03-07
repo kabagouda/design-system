@@ -6,6 +6,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "publish-all": {
+      "dependsOn": ["clean", "build"]
+    },
     "mui#build": {
       "dependsOn": ["@noya-design-system/protocol#build"]
     },
