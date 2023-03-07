@@ -7,7 +7,6 @@
     "dist"
   ],
   "scripts": {
-    "dev": "webpack-dev-server --env development",
     "build": "webpack --env production",
     "clean": "npx rimraf dist"
   },

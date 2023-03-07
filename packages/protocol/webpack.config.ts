@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import path from "path";
 import { Configuration } from "webpack";
 
@@ -8,7 +10,7 @@ const paths = {
 module.exports = ({ production }: Record<string, boolean>) => {
   const config: Configuration = {
     mode: production ? "production" : "development",
-    entry: "./src/index.tsx",
+    entry: "./src/index.ts",
     devtool: production ? "source-map" : "eval-source-map",
     output: {
       path: paths.dist,

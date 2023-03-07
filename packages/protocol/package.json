@@ -2,9 +2,11 @@
   "name": "@noya-design-system/protocol",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --env production",
+    "clean": "npx rimraf dist"
   },
   "keywords": [],
   "author": "Devin Abbott",
@@ -13,6 +15,12 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.28"
+    "@types/react": "^18.0.28",
+    "@types/node": "^18.14.6",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
