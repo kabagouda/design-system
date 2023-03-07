@@ -15,6 +15,7 @@ function NoyaButton({
 }) {
   return (
     <Button
+      variant="contained"
       style={props.style}
       className={props.className}
       children={props.children}

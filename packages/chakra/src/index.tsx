@@ -91,9 +91,12 @@ function NoyaImage({
 }
 
 const dependencies = {
-  "@mui/material": "*",
-  "@emotion/react": "*",
-  "@emotion/styled": "*",
+  "@chakra-ui/icons": "^2.0.17",
+  "@chakra-ui/react": "^2.5.1",
+  "@chakra-ui/system": "^2.5.1",
+  "@emotion/react": "^11.10.6",
+  "@emotion/styled": "^11.10.6",
+  "framer-motion": "^10.2.3",
 };
 
 export const DesignSystem: DesignSystemDefinition = {
@@ -103,22 +106,22 @@ export const DesignSystem: DesignSystemDefinition = {
   components: {
     [component.id.button]: {
       Component: NoyaButton,
-      source: { package: "@mui/material", name: "Button" },
+      source: { package: "@chakra-ui/react", name: "Button" },
       dependencies,
     },
     [component.id.avatar]: {
       Component: NoyaAvatar,
-      source: { package: "@mui/material", name: "Avatar" },
+      source: { package: "@chakra-ui/react", name: "Avatar" },
       dependencies,
     },
     [component.id.box]: {
       Component: NoyaBox,
-      source: { package: "@mui/material", name: "Box" },
+      source: { package: "@chakra-ui/react", name: "Box" },
       dependencies,
     },
     [component.id.text]: {
       Component: NoyaText,
-      source: { package: "@mui/material", name: "Typography" },
+      source: { package: "@chakra-ui/react", name: "Text" },
       dependencies,
     },
     [component.id.image]: {
