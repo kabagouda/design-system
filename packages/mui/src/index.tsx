@@ -2,17 +2,19 @@ import { Avatar, Box, Button, Typography } from "@mui/material";
 import {
   component,
   DesignSystemDefinition,
+  RenderableRoot,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
+import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
-function NoyaButton({
-  ...props
-}: {
+type BaseProps = {
   style?: React.CSSProperties;
   className?: string;
   children: React.ReactNode;
-}) {
+};
+
+function NoyaButton({ ...props }: BaseProps) {
   return (
     <Button
       variant="contained"
@@ -23,13 +25,7 @@ function NoyaButton({
   );
 }
 
-function NoyaBox({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
-}) {
+function NoyaBox({ ...props }: BaseProps) {
   return (
     <Box
       style={props.style}
@@ -57,13 +53,7 @@ function NoyaAvatar({
   );
 }
 
-function NoyaText({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
-}) {
+function NoyaText({ ...props }: BaseProps) {
   return (
     <Typography
       style={props.style}
@@ -75,10 +65,7 @@ function NoyaText({
 
 function NoyaImage({
   ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
+}: BaseProps & {
   src?: string;
 }) {
   return (
@@ -99,7 +86,22 @@ const dependencies = {
 
 export const DesignSystem: DesignSystemDefinition = {
   createElement,
-  createRoot,
+  createRoot: (element: HTMLElement) => {
+    const root = createRoot(element);
+
+    const renderableRoot: RenderableRoot = {
+      render: (node) => {
+        flushSync(() => {
+          root.render(node);
+        });
+      },
+      unmount: () => {
+        root.unmount();
+      },
+    };
+
+    return renderableRoot;
+  },
   components: {
     [component.id.button]: {
       Component: NoyaButton,

@@ -6,13 +6,13 @@ import {
 import React, { createElement } from "react";
 import { createRoot } from "react-dom/client";
 
-function NoyaButton({
-  ...props
-}: {
+type BaseProps = {
   style?: React.CSSProperties;
   className?: string;
   children: React.ReactNode;
-}) {
+};
+
+function NoyaButton({ ...props }: BaseProps) {
   return (
     <Button
       style={props.style}
@@ -22,13 +22,7 @@ function NoyaButton({
   );
 }
 
-function NoyaBox({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
-}) {
+function NoyaBox({ ...props }: BaseProps) {
   return (
     <Box
       style={props.style}
@@ -40,11 +34,9 @@ function NoyaBox({
 
 function NoyaAvatar({
   ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  name?: string;
+}: BaseProps & {
   src?: string;
+  name?: string;
 }) {
   return (
     <Avatar
@@ -56,13 +48,7 @@ function NoyaAvatar({
   );
 }
 
-function NoyaText({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
-}) {
+function NoyaText({ ...props }: BaseProps) {
   return (
     <Text
       style={props.style}
