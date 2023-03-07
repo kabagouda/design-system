@@ -6,8 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack --env production",
-    "clean": "npx rimraf dist",
-    "prepublishOnly": "npm run clean && npm run build"
+    "clean": "npx rimraf dist"
   },
   "keywords": [],
   "author": "Devin Abbott",

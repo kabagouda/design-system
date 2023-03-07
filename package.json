@@ -5,10 +5,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "pnpm turbo clean",
+    "build": "pnpm turbo build",
     "publish": "pnpm publish -r"
   },
   "keywords": [],
   "author": "Devin Abbott",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "turbo": "^1.8.3"
+  }
 }

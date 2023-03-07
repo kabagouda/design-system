@@ -9,6 +9,7 @@
 lib
 dist
 build
+.turbo
 
 .vscode
 node_modules

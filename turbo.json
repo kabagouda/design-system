@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "clean": {},
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "mui#build": {
+      "dependsOn": ["@noya-design-system/protocol#build"]
+    },
+    "chakra#build": {
+      "dependsOn": ["@noya-design-system/protocol#build"]
+    }
+  }
+}
