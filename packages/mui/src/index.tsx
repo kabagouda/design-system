@@ -1,15 +1,10 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
-import React from "react";
-import ReactDOM from "react-dom";
 import {
-  avatarSymbolId,
-  boxSymbolId,
-  buttonSymbolId,
-  imageSymbolId,
-  textSymbolId,
-} from "./symbolIds";
-
-export { React, ReactDOM };
+  component,
+  DesignSystemDefinition,
+} from "@noya-design-system/protocol";
+import React, { createElement } from "react";
+import { createRoot } from "react-dom/client";
 
 function NoyaButton({
   ...props
@@ -95,40 +90,38 @@ function NoyaImage({
   );
 }
 
-export type ExportedComponent = {
-  Component: React.FC<any>;
-  source?: { package: string; name: string };
-  dependencies?: Record<string, string>;
-};
-
 const dependencies = {
   "@mui/material": "*",
   "@emotion/react": "*",
   "@emotion/styled": "*",
 };
 
-export const Components: Record<string, ExportedComponent> = {
-  [buttonSymbolId]: {
-    Component: NoyaButton,
-    source: { package: "@mui/material", name: "Button" },
-    dependencies,
-  },
-  [avatarSymbolId]: {
-    Component: NoyaAvatar,
-    source: { package: "@mui/material", name: "Avatar" },
-    dependencies,
-  },
-  [boxSymbolId]: {
-    Component: NoyaBox,
-    source: { package: "@mui/material", name: "Box" },
-    dependencies,
-  },
-  [textSymbolId]: {
-    Component: NoyaText,
-    source: { package: "@mui/material", name: "Typography" },
-    dependencies,
-  },
-  [imageSymbolId]: {
-    Component: NoyaImage,
+export const DesignSystem: DesignSystemDefinition = {
+  createElement,
+  createRoot,
+  components: {
+    [component.id.button]: {
+      Component: NoyaButton,
+      source: { package: "@mui/material", name: "Button" },
+      dependencies,
+    },
+    [component.id.avatar]: {
+      Component: NoyaAvatar,
+      source: { package: "@mui/material", name: "Avatar" },
+      dependencies,
+    },
+    [component.id.box]: {
+      Component: NoyaBox,
+      source: { package: "@mui/material", name: "Box" },
+      dependencies,
+    },
+    [component.id.text]: {
+      Component: NoyaText,
+      source: { package: "@mui/material", name: "Typography" },
+      dependencies,
+    },
+    [component.id.image]: {
+      Component: NoyaImage,
+    },
   },
 };

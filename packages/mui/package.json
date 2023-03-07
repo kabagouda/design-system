@@ -1,5 +1,5 @@
 {
-  "name": "noya-library-mui",
+  "name": "@noya-design-system/mui",
   "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
@@ -16,7 +16,8 @@
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@noya-design-system/protocol": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

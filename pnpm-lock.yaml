@@ -13,6 +13,7 @@ importers:
       '@emotion/react': ^11.10.6
       '@emotion/styled': ^11.10.6
       '@mui/material': ^5.11.11
+      '@noya-design-system/protocol': workspace:*
       '@types/node': ^18.14.6
       '@types/react': ^18.0.28
       '@types/react-dom': ^18.0.11
@@ -29,6 +30,7 @@ importers:
       '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
       '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
       '@mui/material': 5.11.12_xqeqsl5kvjjtyxwyi3jhw3yuli
+      '@noya-design-system/protocol': link:../protocol
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
@@ -47,7 +49,13 @@ importers:
       webpack-dev-server: 4.11.1_rjsyjcrmk25kqsjzwkvj3a2evq
 
   packages/protocol:
-    specifiers: {}
+    specifiers:
+      '@types/react': ^18.0.28
+      react: ^18.2.0
+    dependencies:
+      react: 18.2.0
+    devDependencies:
+      '@types/react': 18.0.28
 
 packages:
 
