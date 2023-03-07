@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "Devin Abbott",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "react": "^18.2.0"
   },
