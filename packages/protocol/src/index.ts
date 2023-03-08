@@ -1,6 +1,31 @@
 import type React from "react";
 
-export const component = {
+export type CheckboxProps = {
+  checked?: boolean;
+  disabled?: boolean;
+};
+
+export type RadioProps = {
+  checked?: boolean;
+  disabled?: boolean;
+};
+
+export type SwitchProps = {
+  checked?: boolean;
+  disabled?: boolean;
+};
+
+export type InputProps = {
+  value?: string;
+  placeholder?: string;
+};
+
+export type SelectProps = {
+  value?: string;
+  options?: string[];
+};
+
+export const componentV1 = {
   id: {
     avatar: "fe7dd31d-b140-4e4c-ab7b-90fbe833936b",
     box: "9dc8f73e-64f2-43f2-8902-af334a7a17cd",
@@ -9,6 +34,7 @@ export const component = {
     icon: "18682473-676a-46d3-8faf-68dc5b1c204f",
     image: "d91ba1e3-7e64-4966-9cc1-daa48f989178",
     input: "4db59e9d-9bc1-4146-af0a-ec8bf801485f",
+    link: "5be80b87-7bd6-4090-8947-316d54064544",
     radio: "e2fbabf8-81f4-4d43-a56d-6067737df0ea",
     select: "7e913e19-97c6-442f-8cc4-58c4f2e71e77",
     spacer: "15907162-13f5-4366-81af-19ced2192245",
@@ -18,6 +44,8 @@ export const component = {
     textarea: "7bcb8f7b-7645-429b-89f0-2298fef4ccb6",
   },
 };
+
+export const component = componentV1;
 
 export type ComponentDefinition = {
   Component: React.FC<any>;

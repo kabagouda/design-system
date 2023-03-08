@@ -1,8 +1,24 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
 import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Link,
+  Radio,
+  Select,
+  Switch,
+  SwitchProps,
+  TextField,
+  Typography,
+} from "@mui/material";
+import {
+  CheckboxProps,
   component,
   DesignSystemDefinition,
+  InputProps,
+  RadioProps,
   RenderableRoot,
+  SelectProps,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
 import { flushSync } from "react-dom";
@@ -18,6 +34,17 @@ function NoyaButton({ ...props }: BaseProps) {
   return (
     <Button
       variant="contained"
+      style={props.style}
+      className={props.className}
+      children={props.children}
+    />
+  );
+}
+
+function NoyaLink({ ...props }: BaseProps) {
+  return (
+    <Link
+      href="#"
       style={props.style}
       className={props.className}
       children={props.children}
@@ -78,6 +105,72 @@ function NoyaImage({
   );
 }
 
+function NoyaCheckbox({ ...props }: BaseProps & CheckboxProps) {
+  return (
+    <Checkbox
+      style={props.style}
+      className={props.className}
+      checked={props.checked}
+      disabled={props.disabled}
+    />
+  );
+}
+
+function NoyaRadio({ ...props }: BaseProps & RadioProps) {
+  return (
+    <Radio
+      style={props.style}
+      className={props.className}
+      checked={props.checked}
+      disabled={props.disabled}
+    />
+  );
+}
+
+function NoyaSwitch({ ...props }: BaseProps & SwitchProps) {
+  return (
+    <Switch
+      style={props.style}
+      className={props.className}
+      checked={props.checked}
+      disabled={props.disabled}
+    />
+  );
+}
+
+function NoyaInput({ ...props }: BaseProps & InputProps) {
+  return (
+    <TextField
+      style={props.style}
+      className={props.className}
+      value={props.value}
+      label={props.placeholder}
+    />
+  );
+}
+
+function NoyaTextarea({ ...props }: BaseProps & InputProps) {
+  return (
+    <TextField
+      style={props.style}
+      className={props.className}
+      value={props.value}
+      label={props.placeholder}
+      multiline
+    />
+  );
+}
+
+function NoyaSelect({ ...props }: BaseProps & SelectProps) {
+  return (
+    <Select
+      style={props.style}
+      className={props.className}
+      value={props.value}
+    />
+  );
+}
+
 const dependencies = {
   "@mui/material": "*",
   "@emotion/react": "*",
@@ -103,6 +196,11 @@ export const DesignSystem: DesignSystemDefinition = {
     return renderableRoot;
   },
   components: {
+    [component.id.link]: {
+      Component: NoyaLink,
+      source: { package: "@mui/material", name: "Link" },
+      dependencies,
+    },
     [component.id.button]: {
       Component: NoyaButton,
       source: { package: "@mui/material", name: "Button" },
@@ -121,6 +219,36 @@ export const DesignSystem: DesignSystemDefinition = {
     [component.id.text]: {
       Component: NoyaText,
       source: { package: "@mui/material", name: "Typography" },
+      dependencies,
+    },
+    [component.id.checkbox]: {
+      Component: NoyaCheckbox,
+      source: { package: "@mui/material", name: "Checkbox" },
+      dependencies,
+    },
+    [component.id.input]: {
+      Component: NoyaInput,
+      source: { package: "@mui/material", name: "TextField" },
+      dependencies,
+    },
+    [component.id.textarea]: {
+      Component: NoyaTextarea,
+      source: { package: "@mui/material", name: "TextField" },
+      dependencies,
+    },
+    [component.id.radio]: {
+      Component: NoyaRadio,
+      source: { package: "@mui/material", name: "Radio" },
+      dependencies,
+    },
+    [component.id.switch]: {
+      Component: NoyaSwitch,
+      source: { package: "@mui/material", name: "Switch" },
+      dependencies,
+    },
+    [component.id.select]: {
+      Component: NoyaSelect,
+      source: { package: "@mui/material", name: "Select" },
       dependencies,
     },
     [component.id.image]: {
