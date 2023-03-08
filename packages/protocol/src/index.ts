@@ -5,6 +5,10 @@ export type CheckboxProps = {
   disabled?: boolean;
 };
 
+export type TextProps = {
+  variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+};
+
 export type RadioProps = {
   checked?: boolean;
   disabled?: boolean;

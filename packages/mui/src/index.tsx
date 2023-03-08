@@ -19,6 +19,7 @@ import {
   RadioProps,
   RenderableRoot,
   SelectProps,
+  TextProps,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
 import { flushSync } from "react-dom";
@@ -80,12 +81,13 @@ function NoyaAvatar({
   );
 }
 
-function NoyaText({ ...props }: BaseProps) {
+function NoyaText({ ...props }: BaseProps & TextProps) {
   return (
     <Typography
       style={props.style}
       className={props.className}
       children={props.children}
+      variant={props.variant}
     />
   );
 }
