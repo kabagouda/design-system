@@ -9,6 +9,11 @@ import {
   Select,
   Switch,
   SwitchProps,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField,
   Typography,
 } from "@mui/material";
@@ -31,6 +36,18 @@ type BaseProps = {
   className?: string;
   children: React.ReactNode;
 };
+
+function wrap(Component: React.FC<any>) {
+  return function NoyaComponent({ ...props }: BaseProps) {
+    return (
+      <Component
+        style={props.style}
+        className={props.className}
+        children={props.children}
+      />
+    );
+  };
+}
 
 function NoyaButton({ ...props }: BaseProps) {
   return (
@@ -264,6 +281,36 @@ export const DesignSystem: DesignSystemDefinition = {
     },
     [component.id.image]: {
       Component: NoyaImage,
+    },
+    [component.id.table]: {
+      Component: wrap(Table),
+      source: { package: "@mui/material", name: "Table" },
+      dependencies,
+    },
+    [component.id.tableHead]: {
+      Component: wrap(TableHead),
+      source: { package: "@mui/material", name: "TableHead" },
+      dependencies,
+    },
+    [component.id.tableBody]: {
+      Component: wrap(TableBody),
+      source: { package: "@mui/material", name: "TableBody" },
+      dependencies,
+    },
+    [component.id.tableRow]: {
+      Component: wrap(TableRow),
+      source: { package: "@mui/material", name: "TableRow" },
+      dependencies,
+    },
+    [component.id.tableCell]: {
+      Component: wrap(TableCell),
+      source: { package: "@mui/material", name: "TableCell" },
+      dependencies,
+    },
+    [component.id.tableHeadCell]: {
+      Component: wrap(TableCell),
+      source: { package: "@mui/material", name: "TableHeadCell" },
+      dependencies,
     },
   },
 };
