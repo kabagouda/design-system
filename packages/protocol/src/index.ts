@@ -22,11 +22,13 @@ export type SwitchProps = {
 export type InputProps = {
   value?: string;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export type SelectProps = {
   value?: string;
   options?: string[];
+  disabled?: boolean;
 };
 
 export const componentV1 = {

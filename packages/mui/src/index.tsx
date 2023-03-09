@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Link,
+  MenuItem,
   Radio,
   Select,
   Switch,
@@ -147,6 +148,7 @@ function NoyaInput({ ...props }: BaseProps & InputProps) {
       className={props.className}
       value={props.value}
       label={props.placeholder}
+      disabled={props.disabled}
     />
   );
 }
@@ -169,7 +171,14 @@ function NoyaSelect({ ...props }: BaseProps & SelectProps) {
       style={props.style}
       className={props.className}
       value={props.value}
-    />
+      disabled={props.disabled}
+    >
+      {(props.options ?? []).map((option, index) => (
+        <MenuItem key={index} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </Select>
   );
 }
 
