@@ -1,5 +1,9 @@
 import type React from "react";
 
+export type ButtonProps = {
+  disabled?: boolean;
+};
+
 export type CheckboxProps = {
   checked?: boolean;
   disabled?: boolean;

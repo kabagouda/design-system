@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import {
   AvatarProps,
+  ButtonProps,
   CheckboxProps,
   component,
   DesignSystemDefinition,
@@ -62,9 +63,6 @@ function wrap<Props extends BaseProps, NativeProps extends BaseProps>(
   return NoyaComponent;
 }
 
-const NoyaButton = wrap(Button, {
-  defaultProps: { variant: "contained" },
-});
 const NoyaLink = wrap(Link, {
   defaultProps: { href: "#" },
 });
@@ -74,6 +72,18 @@ const NoyaTableHead = wrap(TableHead);
 const NoyaTableBody = wrap(TableBody);
 const NoyaTableRow = wrap(TableRow);
 const NoyaTableCell = wrap(TableCell);
+
+function NoyaButton(props: BaseProps & ButtonProps) {
+  return (
+    <Button
+      style={props.style}
+      className={props.className}
+      children={props.children}
+      disabled={props.disabled}
+      variant="contained"
+    />
+  );
+}
 
 function NoyaAvatar(props: BaseProps & AvatarProps) {
   return (

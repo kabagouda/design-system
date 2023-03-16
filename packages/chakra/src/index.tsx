@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import {
   AvatarProps,
+  ButtonProps,
   CheckboxProps,
   component,
   DesignSystemDefinition,
@@ -80,12 +81,13 @@ export const DesignSystem: DesignSystemDefinition = {
         />
       );
     },
-    [component.id.button]: function NoyaButton(props: BaseProps) {
+    [component.id.button]: function NoyaButton(props: BaseProps & ButtonProps) {
       return (
         <Button
           style={props.style}
           className={props.className}
           children={props.children}
+          isDisabled={props.disabled}
         />
       );
     },
