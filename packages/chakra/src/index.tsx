@@ -129,7 +129,7 @@ export const DesignSystem: DesignSystemDefinition = {
           style={props.style}
           className={props.className}
           children={props.children}
-          size={size}
+          fontSize={size}
         />
       );
     },
