@@ -9,6 +9,15 @@ export type TextProps = {
   variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 };
 
+export type AvatarProps = {
+  src?: string;
+  name?: string;
+};
+
+export type ImageProps = {
+  src?: string;
+};
+
 export type RadioProps = {
   checked?: boolean;
   disabled?: boolean;
@@ -33,6 +42,9 @@ export type SelectProps = {
 
 export const componentV1 = {
   id: {
+    // --- Provider ---
+    provider: "9912abdb-6d27-4d5e-ab72-9d86a3b28dc0",
+    // --- Components ---
     avatar: "fe7dd31d-b140-4e4c-ab7b-90fbe833936b",
     box: "9dc8f73e-64f2-43f2-8902-af334a7a17cd",
     button: "cdf2346b-cb21-4f23-8d93-7c4fb2e3a5a0",
@@ -58,10 +70,14 @@ export const componentV1 = {
 
 export const component = componentV1;
 
-export type ComponentDefinition = {
-  Component: React.FC<any>;
-  source?: { package: string; name: string };
-  dependencies?: Record<string, string>;
+export type Dependencies = Record<string, string>;
+
+export type Components = Record<string, React.FC<any>>;
+
+export type ImportDeclaration = {
+  source: string;
+  namespace: Record<string, any>;
+  dependencies?: Dependencies;
 };
 
 export type RenderableRoot = {
@@ -71,7 +87,9 @@ export type RenderableRoot = {
 
 export type DesignSystemDefinition = {
   Provider?: React.FC<any>;
-  components: Record<string, ComponentDefinition>;
+  components: Components;
   createElement: (...args: any[]) => JSX.Element;
   createRoot: (element: HTMLElement) => RenderableRoot;
+  dependencies?: Dependencies;
+  imports?: ImportDeclaration[];
 };

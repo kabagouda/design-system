@@ -1,8 +1,36 @@
-import { Avatar, Box, Button, ChakraProvider, Text } from "@chakra-ui/react";
+import * as Chakra from "@chakra-ui/react";
 import {
+  Avatar,
+  Box,
+  Button,
+  ChakraProvider,
+  Checkbox,
+  Input,
+  Link,
+  Radio,
+  Select,
+  Switch,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Textarea,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import {
+  AvatarProps,
+  CheckboxProps,
   component,
   DesignSystemDefinition,
+  ImageProps,
+  InputProps,
+  RadioProps,
   RenderableRoot,
+  SelectProps,
+  SwitchProps,
+  TextProps,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
 import { flushSync } from "react-dom";
@@ -14,81 +42,15 @@ type BaseProps = {
   children: React.ReactNode;
 };
 
-function NoyaButton({ ...props }: BaseProps) {
-  return (
-    <Button
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
-
-function NoyaBox({ ...props }: BaseProps) {
-  return (
-    <Box
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
-
-function NoyaAvatar({
-  ...props
-}: BaseProps & {
-  src?: string;
-  name?: string;
-}) {
-  return (
-    <Avatar
-      style={props.style}
-      className={props.className}
-      children={props.name}
-      src={props.src}
-    />
-  );
-}
-
-function NoyaText({ ...props }: BaseProps) {
-  return (
-    <Text
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
-
-function NoyaImage({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  children: React.ReactNode;
-  src?: string;
-}) {
-  return (
-    <img
-      style={props.style}
-      className={props.className}
-      children={props.children}
-      src={props.src}
-    />
-  );
-}
-
-const dependencies = {
-  "@chakra-ui/icons": "^2.0.17",
-  "@chakra-ui/react": "^2.5.1",
-  "@chakra-ui/system": "^2.5.1",
-  "@emotion/react": "^11.10.6",
-  "@emotion/styled": "^11.10.6",
-  "framer-motion": "^10.2.3",
-};
-
 export const DesignSystem: DesignSystemDefinition = {
-  Provider: ChakraProvider,
+  dependencies: {
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.5.1",
+    "@chakra-ui/system": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "framer-motion": "^10.2.3",
+  },
   createElement,
   createRoot: (element: HTMLElement) => {
     const root = createRoot(element);
@@ -107,28 +69,201 @@ export const DesignSystem: DesignSystemDefinition = {
     return renderableRoot;
   },
   components: {
-    [component.id.button]: {
-      Component: NoyaButton,
-      source: { package: "@chakra-ui/react", name: "Button" },
-      dependencies,
+    [component.id.provider]: ChakraProvider,
+    [component.id.link]: function NoyaLink(props: BaseProps) {
+      return (
+        <Link
+          href="#"
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
     },
-    [component.id.avatar]: {
-      Component: NoyaAvatar,
-      source: { package: "@chakra-ui/react", name: "Avatar" },
-      dependencies,
+    [component.id.button]: function NoyaButton(props: BaseProps) {
+      return (
+        <Button
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
     },
-    [component.id.box]: {
-      Component: NoyaBox,
-      source: { package: "@chakra-ui/react", name: "Box" },
-      dependencies,
+    [component.id.avatar]: function NoyaAvatar(props: BaseProps & AvatarProps) {
+      return (
+        <Avatar
+          style={props.style}
+          className={props.className}
+          children={props.name}
+          src={props.src}
+        />
+      );
     },
-    [component.id.text]: {
-      Component: NoyaText,
-      source: { package: "@chakra-ui/react", name: "Text" },
-      dependencies,
+    [component.id.box]: function NoyaBox(props: BaseProps) {
+      return (
+        <Box
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
     },
-    [component.id.image]: {
-      Component: NoyaImage,
+    [component.id.text]: function NoyaText(props: BaseProps & TextProps) {
+      const size =
+        props.variant === "h1"
+          ? "6xl"
+          : props.variant === "h2"
+          ? "5xl"
+          : props.variant === "h3"
+          ? "4xl"
+          : props.variant === "h4"
+          ? "3xl"
+          : props.variant === "h5"
+          ? "2xl"
+          : props.variant === "h6"
+          ? "xl"
+          : "xl";
+
+      return (
+        <Text
+          style={props.style}
+          className={props.className}
+          children={props.children}
+          size={size}
+        />
+      );
+    },
+    [component.id.checkbox]: function NoyaCheckbox(
+      props: BaseProps & CheckboxProps
+    ) {
+      return (
+        <Checkbox
+          isChecked={props.checked}
+          isDisabled={props.disabled}
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.input]: function NoyaInput(props: BaseProps & InputProps) {
+      return (
+        <Input
+          style={props.style}
+          className={props.className}
+          children={props.children}
+          value={props.value}
+          placeholder={props.placeholder}
+          isDisabled={props.disabled}
+        />
+      );
+    },
+    [component.id.textarea]: function NoyaTextarea(
+      props: BaseProps & InputProps
+    ) {
+      return (
+        <Textarea
+          style={props.style}
+          className={props.className}
+          children={props.children}
+          value={props.value}
+          placeholder={props.placeholder}
+          isDisabled={props.disabled}
+        />
+      );
+    },
+    [component.id.radio]: function NoyaRadio(props: BaseProps & RadioProps) {
+      return (
+        <Radio
+          style={props.style}
+          className={props.className}
+          children={props.children}
+          isChecked={props.checked}
+          isDisabled={props.disabled}
+        />
+      );
+    },
+    [component.id.switch]: function NoyaSwitch(props: BaseProps & SwitchProps) {
+      return (
+        <Switch
+          style={props.style}
+          className={props.className}
+          children={props.children}
+          isChecked={props.checked}
+          isDisabled={props.disabled}
+        />
+      );
+    },
+    [component.id.select]: function NoyaSelect(props: BaseProps & SelectProps) {
+      return (
+        <Select style={props.style} className={props.className}>
+          {(props.options ?? []).map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </Select>
+      );
+    },
+    [component.id.image]: function NoyaImage(props: BaseProps & ImageProps) {
+      return (
+        <img style={props.style} className={props.className} src={props.src} />
+      );
+    },
+    [component.id.table]: function NoyaTable(props: BaseProps) {
+      return (
+        <Table
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.tableHead]: function NoyaTableHead(props: BaseProps) {
+      return (
+        <Thead
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.tableBody]: function NoyaTableBody(props: BaseProps) {
+      return (
+        <Tbody
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.tableRow]: function NoyaTableRow(props: BaseProps) {
+      return (
+        <Tr
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.tableCell]: function NoyaTableCell(props: BaseProps) {
+      return (
+        <Td
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
+    },
+    [component.id.tableHeadCell]: function NoyaTableHeadCell(props: BaseProps) {
+      return (
+        <Th
+          style={props.style}
+          className={props.className}
+          children={props.children}
+        />
+      );
     },
   },
+  imports: [{ source: "@chakra-ui/react", namespace: Chakra }],
 };

@@ -1,3 +1,4 @@
+import * as MUI from "@mui/material";
 import {
   Avatar,
   Box,
@@ -8,7 +9,6 @@ import {
   Radio,
   Select,
   Switch,
-  SwitchProps,
   Table,
   TableBody,
   TableCell,
@@ -18,13 +18,16 @@ import {
   Typography,
 } from "@mui/material";
 import {
+  AvatarProps,
   CheckboxProps,
   component,
   DesignSystemDefinition,
+  ImageProps,
   InputProps,
   RadioProps,
   RenderableRoot,
   SelectProps,
+  SwitchProps,
   TextProps,
 } from "@noya-design-system/protocol";
 import React, { createElement } from "react";
@@ -34,61 +37,45 @@ import { createRoot } from "react-dom/client";
 type BaseProps = {
   style?: React.CSSProperties;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
-function wrap(Component: React.FC<any>) {
-  return function NoyaComponent({ ...props }: BaseProps) {
+function wrap<Props extends BaseProps, NativeProps extends BaseProps>(
+  Component: React.FC<Partial<NativeProps>>,
+  { defaultProps }: { defaultProps?: Partial<NativeProps> } = {}
+) {
+  const Untyped = Component as any;
+
+  const NoyaComponent: React.FC<Partial<Props>> = function NoyaComponent(
+    props: Partial<Props>
+  ) {
     return (
-      <Component
+      <Untyped
         style={props.style}
         className={props.className}
         children={props.children}
+        {...defaultProps}
       />
     );
   };
+
+  return NoyaComponent;
 }
 
-function NoyaButton({ ...props }: BaseProps) {
-  return (
-    <Button
-      variant="contained"
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
+const NoyaButton = wrap(Button, {
+  defaultProps: { variant: "contained" },
+});
+const NoyaLink = wrap(Link, {
+  defaultProps: { href: "#" },
+});
+const NoyaBox = wrap(Box);
+const NoyaTable = wrap(Table);
+const NoyaTableHead = wrap(TableHead);
+const NoyaTableBody = wrap(TableBody);
+const NoyaTableRow = wrap(TableRow);
+const NoyaTableCell = wrap(TableCell);
 
-function NoyaLink({ ...props }: BaseProps) {
-  return (
-    <Link
-      href="#"
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
-
-function NoyaBox({ ...props }: BaseProps) {
-  return (
-    <Box
-      style={props.style}
-      className={props.className}
-      children={props.children}
-    />
-  );
-}
-
-function NoyaAvatar({
-  ...props
-}: {
-  style?: React.CSSProperties;
-  className?: string;
-  name?: string;
-  src?: string;
-}) {
+function NoyaAvatar(props: BaseProps & AvatarProps) {
   return (
     <Avatar
       style={props.style}
@@ -99,7 +86,7 @@ function NoyaAvatar({
   );
 }
 
-function NoyaText({ ...props }: BaseProps & TextProps) {
+function NoyaText(props: BaseProps & TextProps) {
   return (
     <Typography
       style={props.style}
@@ -110,22 +97,13 @@ function NoyaText({ ...props }: BaseProps & TextProps) {
   );
 }
 
-function NoyaImage({
-  ...props
-}: BaseProps & {
-  src?: string;
-}) {
+function NoyaImage(props: BaseProps & ImageProps) {
   return (
-    <img
-      style={props.style}
-      className={props.className}
-      children={props.children}
-      src={props.src}
-    />
+    <img style={props.style} className={props.className} src={props.src} />
   );
 }
 
-function NoyaCheckbox({ ...props }: BaseProps & CheckboxProps) {
+function NoyaCheckbox(props: BaseProps & CheckboxProps) {
   return (
     <Checkbox
       style={props.style}
@@ -136,7 +114,7 @@ function NoyaCheckbox({ ...props }: BaseProps & CheckboxProps) {
   );
 }
 
-function NoyaRadio({ ...props }: BaseProps & RadioProps) {
+function NoyaRadio(props: BaseProps & RadioProps) {
   return (
     <Radio
       style={props.style}
@@ -147,7 +125,7 @@ function NoyaRadio({ ...props }: BaseProps & RadioProps) {
   );
 }
 
-function NoyaSwitch({ ...props }: BaseProps & SwitchProps) {
+function NoyaSwitch(props: BaseProps & SwitchProps) {
   return (
     <Switch
       style={props.style}
@@ -158,7 +136,7 @@ function NoyaSwitch({ ...props }: BaseProps & SwitchProps) {
   );
 }
 
-function NoyaInput({ ...props }: BaseProps & InputProps) {
+function NoyaInput(props: BaseProps & InputProps) {
   return (
     <TextField
       style={props.style}
@@ -170,7 +148,7 @@ function NoyaInput({ ...props }: BaseProps & InputProps) {
   );
 }
 
-function NoyaTextarea({ ...props }: BaseProps & InputProps) {
+function NoyaTextarea(props: BaseProps & InputProps) {
   return (
     <TextField
       style={props.style}
@@ -182,7 +160,7 @@ function NoyaTextarea({ ...props }: BaseProps & InputProps) {
   );
 }
 
-function NoyaSelect({ ...props }: BaseProps & SelectProps) {
+function NoyaSelect(props: BaseProps & SelectProps) {
   return (
     <Select
       style={props.style}
@@ -199,13 +177,12 @@ function NoyaSelect({ ...props }: BaseProps & SelectProps) {
   );
 }
 
-const dependencies = {
-  "@mui/material": "*",
-  "@emotion/react": "*",
-  "@emotion/styled": "*",
-};
-
 export const DesignSystem: DesignSystemDefinition = {
+  dependencies: {
+    "@mui/material": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+  },
   createElement,
   createRoot: (element: HTMLElement) => {
     const root = createRoot(element);
@@ -224,93 +201,24 @@ export const DesignSystem: DesignSystemDefinition = {
     return renderableRoot;
   },
   components: {
-    [component.id.link]: {
-      Component: NoyaLink,
-      source: { package: "@mui/material", name: "Link" },
-      dependencies,
-    },
-    [component.id.button]: {
-      Component: NoyaButton,
-      source: { package: "@mui/material", name: "Button" },
-      dependencies,
-    },
-    [component.id.avatar]: {
-      Component: NoyaAvatar,
-      source: { package: "@mui/material", name: "Avatar" },
-      dependencies,
-    },
-    [component.id.box]: {
-      Component: NoyaBox,
-      source: { package: "@mui/material", name: "Box" },
-      dependencies,
-    },
-    [component.id.text]: {
-      Component: NoyaText,
-      source: { package: "@mui/material", name: "Typography" },
-      dependencies,
-    },
-    [component.id.checkbox]: {
-      Component: NoyaCheckbox,
-      source: { package: "@mui/material", name: "Checkbox" },
-      dependencies,
-    },
-    [component.id.input]: {
-      Component: NoyaInput,
-      source: { package: "@mui/material", name: "TextField" },
-      dependencies,
-    },
-    [component.id.textarea]: {
-      Component: NoyaTextarea,
-      source: { package: "@mui/material", name: "TextField" },
-      dependencies,
-    },
-    [component.id.radio]: {
-      Component: NoyaRadio,
-      source: { package: "@mui/material", name: "Radio" },
-      dependencies,
-    },
-    [component.id.switch]: {
-      Component: NoyaSwitch,
-      source: { package: "@mui/material", name: "Switch" },
-      dependencies,
-    },
-    [component.id.select]: {
-      Component: NoyaSelect,
-      source: { package: "@mui/material", name: "Select" },
-      dependencies,
-    },
-    [component.id.image]: {
-      Component: NoyaImage,
-    },
-    [component.id.table]: {
-      Component: wrap(Table),
-      source: { package: "@mui/material", name: "Table" },
-      dependencies,
-    },
-    [component.id.tableHead]: {
-      Component: wrap(TableHead),
-      source: { package: "@mui/material", name: "TableHead" },
-      dependencies,
-    },
-    [component.id.tableBody]: {
-      Component: wrap(TableBody),
-      source: { package: "@mui/material", name: "TableBody" },
-      dependencies,
-    },
-    [component.id.tableRow]: {
-      Component: wrap(TableRow),
-      source: { package: "@mui/material", name: "TableRow" },
-      dependencies,
-    },
-    [component.id.tableCell]: {
-      Component: wrap(TableCell),
-      source: { package: "@mui/material", name: "TableCell" },
-      dependencies,
-    },
-    [component.id.tableHeadCell]: {
-      Component: wrap(TableCell),
-      source: { package: "@mui/material", name: "TableHeadCell" },
-      dependencies,
-    },
+    [component.id.link]: NoyaLink,
+    [component.id.button]: NoyaButton,
+    [component.id.avatar]: NoyaAvatar,
+    [component.id.box]: NoyaBox,
+    [component.id.text]: NoyaText,
+    [component.id.checkbox]: NoyaCheckbox,
+    [component.id.input]: NoyaInput,
+    [component.id.textarea]: NoyaTextarea,
+    [component.id.radio]: NoyaRadio,
+    [component.id.switch]: NoyaSwitch,
+    [component.id.select]: NoyaSelect,
+    [component.id.image]: NoyaImage,
+    [component.id.table]: NoyaTable,
+    [component.id.tableHead]: NoyaTableHead,
+    [component.id.tableBody]: NoyaTableBody,
+    [component.id.tableRow]: NoyaTableRow,
+    [component.id.tableCell]: NoyaTableCell,
+    [component.id.tableHeadCell]: NoyaTableCell,
   },
+  imports: [{ source: "@mui/material", namespace: MUI }],
 };
