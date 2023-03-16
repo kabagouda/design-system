@@ -111,17 +111,17 @@ export const DesignSystem: DesignSystemDefinition = {
     [component.id.text]: function NoyaText(props: BaseProps & TextProps) {
       const size =
         props.variant === "h1"
-          ? "9xl"
-          : props.variant === "h2"
           ? "8xl"
+          : props.variant === "h2"
+          ? "6xl"
           : props.variant === "h3"
-          ? "7xl"
-          : props.variant === "h4"
           ? "5xl"
-          : props.variant === "h5"
+          : props.variant === "h4"
           ? "4xl"
-          : props.variant === "h6"
+          : props.variant === "h5"
           ? "2xl"
+          : props.variant === "h6"
+          ? "xl"
           : undefined;
 
       return (
