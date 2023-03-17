@@ -46,6 +46,7 @@ type BaseProps = {
 
 export const DesignSystem: DesignSystemDefinition = {
   dependencies: {
+    react: "^18",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@chakra-ui/system": "^2.5.1",
