@@ -15,7 +15,7 @@ module.exports = ({ production }: Record<string, boolean>) => {
     output: {
       path: paths.dist,
       filename: "index.js",
-      library: "noya-library-mui",
+      library: require("./package.json").name,
       libraryTarget: "umd",
       globalObject: "this",
     },

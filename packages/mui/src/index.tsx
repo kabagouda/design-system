@@ -18,9 +18,11 @@ import {
   Typography,
 } from "@mui/material";
 import {
+  applyCommonProps,
   AvatarProps,
   ButtonProps,
   CheckboxProps,
+  CommonProps,
   component,
   DesignSystemDefinition,
   ImageProps,
@@ -30,164 +32,15 @@ import {
   SelectProps,
   SwitchProps,
   TextProps,
+  version,
 } from "@noya-design-system/protocol";
-import React, { createElement } from "react";
+import { createElement } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
-type BaseProps = {
-  style?: React.CSSProperties;
-  className?: string;
-  children?: React.ReactNode;
-};
-
-function wrap<Props extends BaseProps, NativeProps extends BaseProps>(
-  Component: React.FC<Partial<NativeProps>>,
-  { defaultProps }: { defaultProps?: Partial<NativeProps> } = {}
-) {
-  const Untyped = Component as any;
-
-  const NoyaComponent: React.FC<Partial<Props>> = function NoyaComponent(
-    props: Partial<Props>
-  ) {
-    return (
-      <Untyped
-        style={props.style}
-        className={props.className}
-        children={props.children}
-        {...defaultProps}
-      />
-    );
-  };
-
-  return NoyaComponent;
-}
-
-const NoyaLink = wrap(Link, {
-  defaultProps: { href: "#" },
-});
-const NoyaBox = wrap(Box);
-const NoyaTable = wrap(Table);
-const NoyaTableHead = wrap(TableHead);
-const NoyaTableBody = wrap(TableBody);
-const NoyaTableRow = wrap(TableRow);
-const NoyaTableCell = wrap(TableCell);
-
-function NoyaButton(props: BaseProps & ButtonProps) {
-  return (
-    <Button
-      style={props.style}
-      className={props.className}
-      children={props.children}
-      disabled={props.disabled}
-      variant="contained"
-    />
-  );
-}
-
-function NoyaAvatar(props: BaseProps & AvatarProps) {
-  return (
-    <Avatar
-      style={props.style}
-      className={props.className}
-      children={props.name}
-      src={props.src}
-    />
-  );
-}
-
-function NoyaText(props: BaseProps & TextProps) {
-  return (
-    <Typography
-      style={props.style}
-      className={props.className}
-      children={props.children}
-      variant={props.variant}
-    />
-  );
-}
-
-function NoyaImage(props: BaseProps & ImageProps) {
-  return (
-    <img style={props.style} className={props.className} src={props.src} />
-  );
-}
-
-function NoyaCheckbox(props: BaseProps & CheckboxProps) {
-  return (
-    <Checkbox
-      style={props.style}
-      className={props.className}
-      checked={props.checked}
-      disabled={props.disabled}
-    />
-  );
-}
-
-function NoyaRadio(props: BaseProps & RadioProps) {
-  return (
-    <Radio
-      style={props.style}
-      className={props.className}
-      checked={props.checked}
-      disabled={props.disabled}
-    />
-  );
-}
-
-function NoyaSwitch(props: BaseProps & SwitchProps) {
-  return (
-    <Switch
-      style={props.style}
-      className={props.className}
-      checked={props.checked}
-      disabled={props.disabled}
-    />
-  );
-}
-
-function NoyaInput(props: BaseProps & InputProps) {
-  return (
-    <TextField
-      style={props.style}
-      className={props.className}
-      value={props.value}
-      label={props.placeholder}
-      disabled={props.disabled}
-    />
-  );
-}
-
-function NoyaTextarea(props: BaseProps & InputProps) {
-  return (
-    <TextField
-      style={props.style}
-      className={props.className}
-      value={props.value}
-      label={props.placeholder}
-      multiline
-    />
-  );
-}
-
-function NoyaSelect(props: BaseProps & SelectProps) {
-  return (
-    <Select
-      style={props.style}
-      className={props.className}
-      value={props.value}
-      disabled={props.disabled}
-    >
-      {(props.options ?? []).map((option, index) => (
-        <MenuItem key={index} value={option}>
-          {option}
-        </MenuItem>
-      ))}
-    </Select>
-  );
-}
-
 export const DesignSystem: DesignSystemDefinition = {
+  version: require("../package.json").version,
+  protocolVersion: version,
   dependencies: {
     react: "^18",
     "react-dom": "^18",
@@ -217,24 +70,124 @@ export const DesignSystem: DesignSystemDefinition = {
     return renderableRoot;
   },
   components: {
-    [component.id.link]: NoyaLink,
-    [component.id.button]: NoyaButton,
-    [component.id.avatar]: NoyaAvatar,
-    [component.id.box]: NoyaBox,
-    [component.id.text]: NoyaText,
-    [component.id.checkbox]: NoyaCheckbox,
-    [component.id.input]: NoyaInput,
-    [component.id.textarea]: NoyaTextarea,
-    [component.id.radio]: NoyaRadio,
-    [component.id.switch]: NoyaSwitch,
-    [component.id.select]: NoyaSelect,
-    [component.id.image]: NoyaImage,
-    [component.id.table]: NoyaTable,
-    [component.id.tableHead]: NoyaTableHead,
-    [component.id.tableBody]: NoyaTableBody,
-    [component.id.tableRow]: NoyaTableRow,
-    [component.id.tableCell]: NoyaTableCell,
-    [component.id.tableHeadCell]: NoyaTableCell,
+    [component.id.link]: function NoyaLink(props: CommonProps) {
+      return <Link href="#" {...applyCommonProps(props)} />;
+    },
+    [component.id.button]: function NoyaButton(props: ButtonProps) {
+      return (
+        <Button
+          disabled={props.disabled}
+          variant="contained"
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.avatar]: function NoyaAvatar(props: AvatarProps) {
+      return (
+        <Avatar
+          style={props.style}
+          className={props.className}
+          children={props.name}
+          src={props.src}
+          {...props._passthrough}
+        />
+      );
+    },
+    [component.id.box]: function NoyaBox(props: CommonProps) {
+      return <Box {...applyCommonProps(props)} />;
+    },
+    [component.id.text]: function NoyaText(props: TextProps) {
+      return (
+        <Typography variant={props.variant} {...applyCommonProps(props)} />
+      );
+    },
+    [component.id.checkbox]: function NoyaCheckbox(props: CheckboxProps) {
+      return (
+        <Checkbox
+          checked={props.checked}
+          disabled={props.disabled}
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.input]: function NoyaInput(props: InputProps) {
+      return (
+        <TextField
+          value={props.value}
+          label={props.placeholder}
+          disabled={props.disabled}
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.textarea]: function NoyaTextarea(props: InputProps) {
+      return (
+        <TextField
+          value={props.value}
+          label={props.placeholder}
+          disabled={props.disabled}
+          multiline
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.radio]: function NoyaRadio(props: RadioProps) {
+      return (
+        <Radio
+          checked={props.checked}
+          disabled={props.disabled}
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.switch]: function NoyaSwitch(props: SwitchProps) {
+      return (
+        <Switch
+          checked={props.checked}
+          disabled={props.disabled}
+          {...applyCommonProps(props)}
+        />
+      );
+    },
+    [component.id.select]: function NoyaSelect(props: SelectProps) {
+      return (
+        <Select
+          style={props.style}
+          className={props.className}
+          value={props.value}
+          disabled={props.disabled}
+          children={(props.options ?? []).map((option, index) => (
+            <MenuItem key={index} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+          {...props._passthrough}
+        />
+      );
+    },
+    [component.id.image]: function NoyaImage(props: ImageProps) {
+      return <img src={props.src} {...applyCommonProps(props)} />;
+    },
+    [component.id.table]: function NoyaTable(props: CommonProps) {
+      return <Table {...applyCommonProps(props)} />;
+    },
+    [component.id.tableHead]: function NoyaTableHead(props: CommonProps) {
+      return <TableHead {...applyCommonProps(props)} />;
+    },
+    [component.id.tableBody]: function NoyaTableBody(props: CommonProps) {
+      return <TableBody {...applyCommonProps(props)} />;
+    },
+    [component.id.tableRow]: function NoyaTableRow(props: CommonProps) {
+      return <TableRow {...applyCommonProps(props)} />;
+    },
+    [component.id.tableCell]: function NoyaTableCell(props: CommonProps) {
+      return <TableCell {...applyCommonProps(props)} />;
+    },
+    [component.id.tableHeadCell]: function NoyaTableHeadCell(
+      props: CommonProps
+    ) {
+      return <TableCell {...applyCommonProps(props)} />;
+    },
   },
   imports: [{ source: "@mui/material", namespace: MUI }],
 };
