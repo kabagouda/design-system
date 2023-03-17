@@ -190,9 +190,14 @@ function NoyaSelect(props: BaseProps & SelectProps) {
 export const DesignSystem: DesignSystemDefinition = {
   dependencies: {
     react: "^18",
+    "react-dom": "^18",
     "@mui/material": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
+  },
+  devDependencies: {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
   },
   createElement,
   createRoot: (element: HTMLElement) => {

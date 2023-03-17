@@ -82,6 +82,7 @@ export type ImportDeclaration = {
   source: string;
   namespace: Record<string, any>;
   dependencies?: Dependencies;
+  devDependencies?: Dependencies;
 };
 
 export type RenderableRoot = {
@@ -95,5 +96,6 @@ export type DesignSystemDefinition = {
   createElement: (...args: any[]) => JSX.Element;
   createRoot: (element: HTMLElement) => RenderableRoot;
   dependencies?: Dependencies;
+  devDependencies?: Dependencies;
   imports?: ImportDeclaration[];
 };
