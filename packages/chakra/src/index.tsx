@@ -5,6 +5,7 @@ import {
   Button,
   ChakraProvider,
   Checkbox,
+  Image,
   Input,
   Link,
   Radio,
@@ -209,7 +210,11 @@ export const DesignSystem: DesignSystemDefinition = {
     },
     [component.id.image]: function NoyaImage(props: BaseProps & ImageProps) {
       return (
-        <img style={props.style} className={props.className} src={props.src} />
+        <Image
+          style={props.style}
+          className={props.className}
+          src={props.src}
+        />
       );
     },
     [component.id.table]: function NoyaTable(props: BaseProps) {
