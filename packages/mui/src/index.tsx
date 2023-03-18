@@ -201,7 +201,7 @@ export const DesignSystem: DesignSystemDefinition = {
     {
       source: "@mui/icons-material",
       namespace: MUIIcons,
-      dependencies: { "@mui/icons-material": "^11" },
+      dependencies: { "@mui/icons-material": "^5" },
     },
   ],
 };
