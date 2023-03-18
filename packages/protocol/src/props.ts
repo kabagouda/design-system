@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type CommonProps = {
   style?: React.CSSProperties;
   className?: string;
@@ -7,6 +9,7 @@ export type CommonProps = {
 export type CheckboxProps = CommonProps & {
   checked?: boolean;
   disabled?: boolean;
+  label?: ReactNode;
 };
 
 export type AvatarProps = CommonProps & {
@@ -21,6 +24,7 @@ export type ImageProps = CommonProps & {
 export type RadioProps = CommonProps & {
   checked?: boolean;
   disabled?: boolean;
+  label?: ReactNode;
 };
 
 export type SwitchProps = CommonProps & {

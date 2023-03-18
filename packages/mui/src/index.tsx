@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Checkbox,
+  FormControlLabel,
   Link,
   MenuItem,
   Radio,
@@ -104,12 +105,18 @@ export const DesignSystem: DesignSystemDefinition = {
       );
     },
     [component.id.checkbox]: function NoyaCheckbox(props: CheckboxProps) {
-      return (
+      const inner = (
         <Checkbox
           checked={props.checked}
           disabled={props.disabled}
           {...applyCommonProps(props)}
         />
+      );
+
+      return props.label ? (
+        <FormControlLabel control={inner} label={props.label} />
+      ) : (
+        inner
       );
     },
     [component.id.input]: function NoyaInput(props: InputProps) {
@@ -134,12 +141,18 @@ export const DesignSystem: DesignSystemDefinition = {
       );
     },
     [component.id.radio]: function NoyaRadio(props: RadioProps) {
-      return (
+      const inner = (
         <Radio
           checked={props.checked}
           disabled={props.disabled}
           {...applyCommonProps(props)}
         />
+      );
+
+      return props.label ? (
+        <FormControlLabel control={inner} label={props.label} />
+      ) : (
+        inner
       );
     },
     [component.id.switch]: function NoyaSwitch(props: SwitchProps) {

@@ -123,6 +123,7 @@ export const DesignSystem: DesignSystemDefinition = {
         <Checkbox
           isChecked={props.checked}
           isDisabled={props.disabled}
+          children={props.label}
           {...applyCommonProps(props)}
         />
       );
@@ -152,6 +153,7 @@ export const DesignSystem: DesignSystemDefinition = {
         <Radio
           isChecked={props.checked}
           isDisabled={props.disabled}
+          children={props.label}
           {...applyCommonProps(props)}
         />
       );
