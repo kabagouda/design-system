@@ -1,4 +1,6 @@
-import * as Chakra from "@chakra-ui/react";
+import * as ChakraIcons from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import * as ChakraComponents from "@chakra-ui/react";
 import {
   Avatar,
   Box,
@@ -47,12 +49,11 @@ export const DesignSystem: DesignSystemDefinition = {
   dependencies: {
     react: "^18",
     "react-dom": "^18",
-    "@chakra-ui/icons": "^2.0.17",
-    "@chakra-ui/react": "^2.5.1",
-    "@chakra-ui/system": "^2.5.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "framer-motion": "^10.2.3",
+    "@chakra-ui/react": "^2",
+    "@chakra-ui/system": "^2",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "framer-motion": "^10",
   },
   devDependencies: {
     "@types/react": "^18",
@@ -203,6 +204,20 @@ export const DesignSystem: DesignSystemDefinition = {
     ) {
       return <Th {...applyCommonProps(props)} />;
     },
+    [component.id.iconArrowForward]: function NoyaIconArrowForward(
+      props: CommonProps
+    ) {
+      return <ArrowForwardIcon {...applyCommonProps(props)} />;
+    },
   },
-  imports: [{ source: "@chakra-ui/react", namespace: Chakra }],
+  imports: [
+    { source: "@chakra-ui/react", namespace: ChakraComponents },
+    {
+      source: "@chakra-ui/icons",
+      namespace: ChakraIcons,
+      dependencies: {
+        "@chakra-ui/icons": "^2",
+      },
+    },
+  ],
 };

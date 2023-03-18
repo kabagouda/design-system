@@ -1,4 +1,6 @@
-import * as MUI from "@mui/material";
+import * as MUIIcons from "@mui/icons-material";
+import { ArrowForward } from "@mui/icons-material";
+import * as MUIComponents from "@mui/material";
 import {
   Avatar,
   Box,
@@ -44,9 +46,9 @@ export const DesignSystem: DesignSystemDefinition = {
   dependencies: {
     react: "^18",
     "react-dom": "^18",
-    "@mui/material": "*",
-    "@emotion/react": "*",
-    "@emotion/styled": "*",
+    "@mui/material": "^5",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
   },
   devDependencies: {
     "@types/react": "^18",
@@ -188,6 +190,18 @@ export const DesignSystem: DesignSystemDefinition = {
     ) {
       return <TableCell {...applyCommonProps(props)} />;
     },
+    [component.id.iconArrowForward]: function NoyaIconArrowForward(
+      props: CommonProps
+    ) {
+      return <ArrowForward {...applyCommonProps(props)} />;
+    },
   },
-  imports: [{ source: "@mui/material", namespace: MUI }],
+  imports: [
+    { source: "@mui/material", namespace: MUIComponents },
+    {
+      source: "@mui/icons-material",
+      namespace: MUIIcons,
+      dependencies: { "@mui/icons-material": "^11" },
+    },
+  ],
 };

@@ -23,6 +23,8 @@ export const componentV1 = {
     tableCell: "4739cb31-4697-42ff-b5a2-1153ed1225ce",
     text: "a1f7266f-50cc-416f-9ed2-4af4bca30257",
     textarea: "7bcb8f7b-7645-429b-89f0-2298fef4ccb6",
+    // --- Icons ---
+    iconArrowForward: "c7b42e30-4055-467b-87cd-cedd88f02634",
   },
 };
 
