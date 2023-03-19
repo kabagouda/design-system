@@ -7,13 +7,11 @@ import {
   Button,
   ChakraProvider,
   Checkbox,
-  extendTheme,
   Image,
   Input,
   Link,
   Radio,
   Select,
-  StyleFunctionProps,
   Switch,
   Table,
   TableContainer,
@@ -46,23 +44,6 @@ import {
 import { createElement } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
-
-const theme = extendTheme({
-  components: {
-    Table: {
-      baseStyle: {
-        table: {
-          borderStyle: "solid",
-          borderWidth: "1px",
-          borderColor: (props: StyleFunctionProps) =>
-            props.colorMode === "dark"
-              ? `${props.colorScheme}.700`
-              : `${props.colorScheme}.100`,
-        },
-      },
-    },
-  },
-});
 
 export const DesignSystem: DesignSystemDefinition = {
   version: require("../package.json").version,
@@ -98,8 +79,8 @@ export const DesignSystem: DesignSystemDefinition = {
     return renderableRoot;
   },
   components: {
-    [component.id.provider]: (props: ProviderProps) => {
-      return <ChakraProvider theme={theme} {...applyCommonProps(props)} />;
+    [component.id.provider]: function NoyaChakraProvider(props: ProviderProps) {
+      return <ChakraProvider {...applyCommonProps(props)} />;
     },
     [component.id.link]: function NoyaLink(props: CommonProps) {
       return <Link href="#" {...applyCommonProps(props)} />;
@@ -215,7 +196,14 @@ export const DesignSystem: DesignSystemDefinition = {
       return <TableContainer {...applyCommonProps(props)} />;
     },
     [component.id.table]: function NoyaTable(props: CommonProps) {
-      return <Table {...applyCommonProps(props)} />;
+      return (
+        <Table
+          borderStyle="solid"
+          borderWidth="1px"
+          borderColor="gray.100"
+          {...applyCommonProps(props)}
+        />
+      );
     },
     [component.id.tableHead]: function NoyaTableHead(props: CommonProps) {
       return <Thead {...applyCommonProps(props)} />;
