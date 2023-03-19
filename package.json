@@ -10,8 +10,10 @@
   "scripts": {
     "clean": "pnpm turbo clean",
     "build": "pnpm turbo build",
+    "build:protocol": "pnpm build --filter protocol",
     "publish-all": "pnpm turbo publish-all && pnpm publish -r",
-    "publish-all:dry-run": "pnpm turbo publish-all && pnpm publish -r --dry-run"
+    "publish-all:dry-run": "pnpm turbo publish-all && pnpm publish -r --dry-run",
+    "version:patch": "npm version patch --workspace \"packages/**\""
   },
   "keywords": [],
   "author": "Devin Abbott",
