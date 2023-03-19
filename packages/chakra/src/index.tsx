@@ -193,17 +193,17 @@ export const DesignSystem: DesignSystemDefinition = {
     [component.id.tableContainer]: function NoyaTableContainer(
       props: CommonProps
     ) {
-      return <TableContainer {...applyCommonProps(props)} />;
-    },
-    [component.id.table]: function NoyaTable(props: CommonProps) {
       return (
-        <Table
+        <TableContainer
           borderStyle="solid"
           borderWidth="1px"
           borderColor="gray.100"
           {...applyCommonProps(props)}
         />
       );
+    },
+    [component.id.table]: function NoyaTable(props: CommonProps) {
+      return <Table {...applyCommonProps(props)} />;
     },
     [component.id.tableHead]: function NoyaTableHead(props: CommonProps) {
       return <Thead {...applyCommonProps(props)} />;
