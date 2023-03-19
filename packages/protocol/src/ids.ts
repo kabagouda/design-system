@@ -15,6 +15,7 @@ export const componentV1 = {
     select: "7e913e19-97c6-442f-8cc4-58c4f2e71e77",
     spacer: "15907162-13f5-4366-81af-19ced2192245",
     switch: "30a8ac0b-18dd-4744-bee1-77852ec4d3d8",
+    tableContainer: "b68726e6-d8e3-400c-9c10-8c71137d0a9c",
     table: "c152b560-d8af-4b16-8202-55111647d17a",
     tableHead: "2bdca1e0-78b1-4f86-a628-31be19a8b139",
     tableBody: "056114ad-38db-4f1d-960e-178e86b8f156",

@@ -1,5 +1,9 @@
 import { ReactNode } from "react";
 
+export type ProviderProps = {
+  children?: ReactNode;
+};
+
 export type CommonProps = {
   style?: React.CSSProperties;
   className?: string;

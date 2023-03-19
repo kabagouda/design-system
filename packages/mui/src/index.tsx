@@ -9,12 +9,14 @@ import {
   FormControlLabel,
   Link,
   MenuItem,
+  Paper,
   Radio,
   Select,
   Switch,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TextField,
@@ -182,6 +184,11 @@ export const DesignSystem: DesignSystemDefinition = {
     },
     [component.id.image]: function NoyaImage(props: ImageProps) {
       return <img src={props.src} {...applyCommonProps(props)} />;
+    },
+    [component.id.tableContainer]: function NoyaTableContainer(
+      props: CommonProps
+    ) {
+      return <TableContainer component={Paper} {...applyCommonProps(props)} />;
     },
     [component.id.table]: function NoyaTable(props: CommonProps) {
       return <Table {...applyCommonProps(props)} />;
