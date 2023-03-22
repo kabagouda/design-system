@@ -20,6 +20,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  TextFieldProps,
   Typography,
 } from "@mui/material";
 import {
@@ -39,7 +40,7 @@ import {
   TextProps,
   version,
 } from "@noya-design-system/protocol";
-import { createElement } from "react";
+import { createElement, CSSProperties } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
@@ -80,6 +81,48 @@ function stringAvatar(name: string) {
     },
     children: initials,
   };
+}
+
+function filterEmptyObjects(obj: Record<string, unknown>) {
+  return Object.keys(obj).reduce((result, key) => {
+    const value = obj[key];
+
+    if (typeof value === "object" && value !== null) {
+      const filtered = filterEmptyObjects(value as Record<string, unknown>);
+
+      if (Object.keys(filtered).length > 0) {
+        result[key] = filtered;
+      }
+    } else if (value !== undefined && value !== null) {
+      result[key] = value;
+    }
+
+    return result;
+  }, {} as Record<string, unknown>);
+}
+
+function mapTextFieldStyleToProps(
+  style?: CSSProperties
+): Partial<TextFieldProps> {
+  if (!style) return {};
+
+  const { color, borderColor, backgroundColor, ...rest } = style;
+
+  return filterEmptyObjects({
+    InputLabelProps: {
+      style: { color },
+    },
+    sx: {
+      input: {
+        color,
+      },
+      fieldset: {
+        borderColor,
+        backgroundColor,
+      },
+    },
+    style: rest,
+  });
 }
 
 export const DesignSystem: DesignSystemDefinition = {
@@ -161,23 +204,29 @@ export const DesignSystem: DesignSystemDefinition = {
       );
     },
     [component.id.input]: function NoyaInput(props: InputProps) {
+      const { style, ...rest } = props;
+
       return (
         <TextField
           value={props.value}
           label={props.placeholder}
           disabled={props.disabled}
-          {...applyCommonProps(props)}
+          {...applyCommonProps(rest)}
+          {...mapTextFieldStyleToProps(style)}
         />
       );
     },
     [component.id.textarea]: function NoyaTextarea(props: InputProps) {
+      const { style, ...rest } = props;
+
       return (
         <TextField
           value={props.value}
           label={props.placeholder}
           disabled={props.disabled}
           multiline
-          {...applyCommonProps(props)}
+          {...applyCommonProps(rest)}
+          {...mapTextFieldStyleToProps(style)}
         />
       );
     },
