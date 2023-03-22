@@ -43,6 +43,44 @@ import { createElement } from "react";
 import { flushSync } from "react-dom";
 import { createRoot } from "react-dom/client";
 
+function stringToColor(string: string) {
+  let hash = 0;
+  let i;
+
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+
+  return color;
+}
+
+/**
+ * Create a background color and initials from a name
+ *
+ * https://mui.com/material-ui/react-avatar/
+ */
+function stringAvatar(name: string) {
+  const initials = name
+    .split(" ")
+    .map((n) => n[0])
+    .join()
+    .toLocaleUpperCase();
+
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: initials,
+  };
+}
+
 export const DesignSystem: DesignSystemDefinition = {
   version: require("../package.json").version,
   protocolVersion: version,
@@ -90,9 +128,9 @@ export const DesignSystem: DesignSystemDefinition = {
     [component.id.avatar]: function NoyaAvatar(props: AvatarProps) {
       return (
         <Avatar
+          {...(props.name && stringAvatar(props.name))}
           style={props.style}
           className={props.className}
-          children={props.name}
           src={props.src}
           {...props._passthrough}
         />

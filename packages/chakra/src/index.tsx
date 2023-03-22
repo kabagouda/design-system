@@ -95,7 +95,7 @@ export const DesignSystem: DesignSystemDefinition = {
         <Avatar
           style={props.style}
           className={props.className}
-          children={props.name}
+          name={props.name}
           src={props.src}
           {...props._passthrough}
         />
