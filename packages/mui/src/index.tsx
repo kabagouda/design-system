@@ -69,8 +69,9 @@ function stringToColor(string: string) {
 function stringAvatar(name: string) {
   const initials = name
     .split(" ")
-    .map((n) => n[0])
-    .join()
+    .filter((c) => c.length > 0)
+    .map((c) => c[0])
+    .join("")
     .toLocaleUpperCase();
 
   return {
